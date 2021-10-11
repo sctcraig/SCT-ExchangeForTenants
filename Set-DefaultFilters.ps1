@@ -47,10 +47,11 @@ foreach ($customer in $customers) {
     try {
         #set the default Hosted Content Filter (anti-spam) policy
         Write-Host "Setting up spam filter policy on $customerId"
-        Set-HostedContentFilterPolicy -Identity "Default" -BulkSpamAction "MovetoJmf" -BulkThreshold "7" -EnableEndUserSpamNotifications $true -EnableEndUserSpamNotificationFrequency "1" -HighConfidencePhishAction "Quarantine" -HighConfidenceSpamAction "Quarantine" -InlineSafetyTipsEnabled $true -MarkAsSpamBulkMail "On" -PhishSpamAction "Quarantine" -PhishZapEnabled $true -QuarantineRetentionPeriod "30" -SpamAction "MoveToJmf" -SpamZapEnabled $true
+        Set-HostedContentFilterPolicy -Identity "Default" -BulkSpamAction "MovetoJmf" -BulkThreshold "7" -EnableEndUserSpamNotifications $true -EndUserSpamNotificationFrequency 1 -HighConfidencePhishAction "Quarantine" -HighConfidenceSpamAction "Quarantine" -InlineSafetyTipsEnabled $true -MarkAsSpamBulkMail "On" -PhishSpamAction "Quarantine" -PhishZapEnabled $true -QuarantineRetentionPeriod "30" -SpamAction "MoveToJmf" -SpamZapEnabled $true
     }
     catch {
         Write-Host "Unable to set up spam filter on $customerid"
+        Write-Host $_.Exception.Message
     }
 
     try {
@@ -62,6 +63,7 @@ foreach ($customer in $customers) {
         #anti-phish policy for orgs without Defender
         Set-AntiphishPolicy -Identity "Office365 AntiPhish Default" -AuthenticationFailAction "Quarantine" -Enabled $true -EnableFirstContactSafetyTips $true -EnableSpoofIntelligence $true -EnableUnauthenticatedSender $true -EnableViaTag $true
         Write-Host "Setting up Phishing policy (without Defender) for $customerid"
+        Write-Host $_.Exception.Message
     }
 
     try {
@@ -72,6 +74,7 @@ foreach ($customer in $customers) {
     }
     catch {
         Write-Host "$customerId does not have a Defender license. Can't enable Malware policy"
+        Write-Host $_.Exception.Message
     }
 
     Remove-PSSession $session
