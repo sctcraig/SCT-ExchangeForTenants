@@ -62,7 +62,7 @@ foreach ($customer in $customers) {
     }
     catch {
         #anti-phish policy for orgs without Defender
-        Set-AntiphishPolicy -Identity "Office365 AntiPhish Default" -AuthenticationFailAction "Quarantine" -Enabled $true -EnableFirstContactSafetyTips $true -EnableSpoofIntelligence $true -EnableUnauthenticatedSender $true -EnableViaTag $true
+        Set-AntiphishPolicy -Identity $PhishPolicy -AuthenticationFailAction "Quarantine" -Enabled $true -EnableFirstContactSafetyTips $true -EnableSpoofIntelligence $true -EnableUnauthenticatedSender $true -EnableViaTag $true
         Write-Host "Setting up Phishing policy (without Defender) for $customerid"
         Write-Host $_.Exception.Message
     }
