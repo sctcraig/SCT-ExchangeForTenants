@@ -57,7 +57,7 @@ foreach ($customer in $customers) {
     try {
         $PhishPolicy = (Get-AntiPhishPolicy | Where-Object { $_.Identity -match "Default" }).Identity
         #this will only work for orgs with Defender enabled
-        Set-AntiphishPolicy -Identity $PhishPolicy -AuthenticationFailAction "Quarantine" -Enabled $true -EnableFirstContactSafetyTips $true -EnableMailboxIntelligenceProtection $true -EnableOrganizationDomainsProtection $true -EnableSimilarDomainsSafetyTips $true -EnableSimilarUsersSafetyTips $true -EnableSpoofIntelligence $true -EnableUnauthenticatedSender $true -EnableUnusualCharactersSafetyTips $true -EnableViaTag $true -MailboxIntelligenceProtectionAction "Quarantine" -PhishThresholdLevel "1" -TargetedDomainProtectionAction "Quarantine" 
+        Set-AntiphishPolicy -Identity $PhishPolicy -AuthenticationFailAction "Quarantine" -Enabled $true -EnableFirstContactSafetyTips $true -EnableMailboxIntelligence $true -EnableMailboxIntelligenceProtection $true -EnableOrganizationDomainsProtection $true -EnableSimilarDomainsSafetyTips $true -EnableSimilarUsersSafetyTips $true -EnableSpoofIntelligence $true -EnableUnauthenticatedSender $true -EnableUnusualCharactersSafetyTips $true -EnableViaTag $true -MailboxIntelligenceProtectionAction "Quarantine" -PhishThresholdLevel "1" -TargetedDomainProtectionAction "Quarantine" 
         Write-Host "Setting up Phishing policy (with Defender) for $customerid"
     }
     catch {
