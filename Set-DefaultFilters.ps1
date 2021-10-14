@@ -47,7 +47,7 @@ foreach ($customer in $customers) {
     try {
         #set the default Hosted Content Filter (anti-spam) policy
         Write-Host "Setting up spam filter policy on $customerId"
-        Set-HostedContentFilterPolicy -Identity "Default" -BulkSpamAction "MovetoJmf" -BulkThreshold "7" -EnableEndUserSpamNotifications $true -EndUserSpamNotificationFrequency 1 -HighConfidencePhishAction "Quarantine" -HighConfidenceSpamAction "Quarantine" -InlineSafetyTipsEnabled $true -MarkAsSpamBulkMail "On" -PhishSpamAction "Quarantine" -PhishZapEnabled $true -QuarantineRetentionPeriod "30" -SpamAction "MoveToJmf" -SpamZapEnabled $true
+        Set-HostedContentFilterPolicy -Identity "Default" -BulkSpamAction "MovetoJmf" -BulkThreshold "7" -EnableEndUserSpamNotifications $true -EndUserSpamNotificationFrequency 1 -HighConfidencePhishAction "Quarantine" -HighConfidenceSpamAction "Quarantine" -InlineSafetyTipsEnabled $true -MarkAsSpamBulkMail "On" -PhishSpamAction "MoveToJmf" -PhishZapEnabled $true -QuarantineRetentionPeriod "30" -SpamAction "MoveToJmf" -SpamZapEnabled $true
     }
     catch {
         Write-Host "Unable to set up spam filter on $customerid"
@@ -57,7 +57,7 @@ foreach ($customer in $customers) {
     try {
         $PhishPolicy = (Get-AntiPhishPolicy | Where-Object { $_.Identity -match "Default" }).Identity
         #this will only work for orgs with Defender enabled
-        Set-AntiphishPolicy -Identity $PhishPolicy -AuthenticationFailAction "Quarantine" -Enabled $true -EnableFirstContactSafetyTips $true -EnableMailboxIntelligence $true -EnableMailboxIntelligenceProtection $true -EnableOrganizationDomainsProtection $true -EnableSimilarDomainsSafetyTips $true -EnableSimilarUsersSafetyTips $true -EnableSpoofIntelligence $true -EnableUnauthenticatedSender $true -EnableUnusualCharactersSafetyTips $true -EnableViaTag $true -MailboxIntelligenceProtectionAction "Quarantine" -PhishThresholdLevel "2" -TargetedDomainProtectionAction "Quarantine" 
+        Set-AntiphishPolicy -Identity $PhishPolicy -AuthenticationFailAction "Quarantine" -Enabled $true -EnableFirstContactSafetyTips $true -EnableMailboxIntelligence $true -EnableMailboxIntelligenceProtection $true -EnableOrganizationDomainsProtection $true -EnableSimilarDomainsSafetyTips $true -EnableSimilarUsersSafetyTips $true -EnableSpoofIntelligence $true -EnableUnauthenticatedSender $true -EnableUnusualCharactersSafetyTips $true -EnableViaTag $true -MailboxIntelligenceProtectionAction "Quarantine" -PhishThresholdLevel "1" -TargetedDomainProtectionAction "Quarantine" 
         Write-Host "Setting up Phishing policy (with Defender) for $customerid"
     }
     catch {
